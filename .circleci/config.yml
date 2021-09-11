@@ -54,11 +54,12 @@ jobs:
       - run:
           name: Add URL to inventory file
           command: |
-            curl -H "Content-Type: text/plain" \
+            URL=$(curl -H "Content-Type: text/plain" \
               -H "token: ${MEMSTASH_TOKEN}" \
               --request GET \
-              https://api.memstash.io/values/EC2URL-Project-Philipp \
-              >> .circleci/ansible/inventory.txt
+              https://api.memstash.io/values/EC2URL-Project-Philipp) 
+            echo $URL >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
       - destroy-environment:
           when: on_fail
 

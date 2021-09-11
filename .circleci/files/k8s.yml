@@ -9,12 +9,6 @@ Parameters:
     Type: Number
     Default: 0
 
-Conditions: 
-    NodeportExists: 
-      Fn::Not: [
-        Fn::Equals: [ 0, !Ref nodeport ]
-      ]
-
 Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -27,8 +21,8 @@ Resources:
           ToPort: 22
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          FromPort: Fn::If [ NodeportExists, !Ref nodeport, 0 ]
-          ToPort: Fn::If [ NodeportExists, !Ref nodeport, 0 ]
+          FromPort: !Ref nodeport
+          ToPort: !Ref nodeport
           CidrIp: 0.0.0.0/0
 
   EC2Instance:

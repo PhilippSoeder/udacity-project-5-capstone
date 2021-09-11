@@ -4,17 +4,32 @@ Parameters:
   ami:
     Description: Ami used for EC2 Instance
     Type: String
+  nodeport:
+    Description: Nodeport for k8s service
+    Type: Number
+    Default: 0
+
+Conditions: 
+    NodeportExists: 
+      Fn::Not: [
+        Fn::Equals: [ 0, !Ref nodeport ]
+      ]
 
 Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: instanceSG
-      GroupDescription: Allow port 22
+      GroupDescription: Security group for k8s ec2 instance
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          Condition: NodeportExists
+          FromPort: !Ref nodeport
+          ToPort: !Ref nodeport
           CidrIp: 0.0.0.0/0
 
   EC2Instance:

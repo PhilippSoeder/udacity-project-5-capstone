@@ -37,7 +37,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/k8s.yml \
-              --tags project=udapeople-project-5 \
+              --tags project=udacityProject5 \
               --stack-name "udapeople-project-5-backend" \
               --parameter-overrides ami="ami-03d5c68bab01f3496" 
       - run:
@@ -45,7 +45,7 @@ jobs:
           command: |
             EC2URL=$(aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicDnsName' \
-              --filters "Name=tag:project,Values=udapeople-project-5" \
+              --filters "Name=tag:project,Values=udacityProject5" \
               --output text)
             curl -H "Content-Type: text/plain" \
               -H "token: ${MEMSTASH_TOKEN}" \

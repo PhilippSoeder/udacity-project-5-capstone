@@ -46,4 +46,4 @@ Outputs:
     Value: 
       !Sub http://${!GetAtt EC2Instance.PublicDnsName}
     Export:
-      Name: Application Endpoint
+      Name: ApplicationEndpoint

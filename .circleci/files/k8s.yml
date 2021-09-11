@@ -41,8 +41,11 @@ Resources:
           Value: udacityProject5
 
 Outputs:
-  EC2URL:
-    Description: EC2 instance URL
-    Value: !GetAtt EC2Instance.PublicDnsName 
+  AppEndpoint:
+    Description: Endpoint the application is accessable on
+    Value: 
+      !Sub 
+        - http://${URL}
+        - { URL: !GetAtt EC2Instance.PublicDnsName}
     Export:
-      Name: EC2URL
+      Name: Application Endpoint

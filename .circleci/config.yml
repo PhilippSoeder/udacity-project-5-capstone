@@ -88,3 +88,5 @@ workflows:
   default:
     jobs:
       - create-backend
+      - configure-backend:
+          requires: [create-backend]

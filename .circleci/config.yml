@@ -38,8 +38,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/k8s.yml \
               --tags project=udacityProject5 \
-              --stack-name "udapeople-project-5-backend" \
-              --parameter-overrides ami="ami-03d5c68bab01f3496" 
+              --stack-name "udapeople-project-5-backend" 
       - run:
           name: Export ec2 URL to memstash
           command: |

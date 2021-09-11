@@ -4,6 +4,7 @@ Parameters:
   ami:
     Description: Ami used for EC2 Instance
     Type: String
+    Default: "ami-03d5c68bab01f3496"
   nodeport:
     Description: Nodeport for k8s service
     Type: Number

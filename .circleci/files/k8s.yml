@@ -44,4 +44,5 @@ Outputs:
   EC2URL:
     Description: EC2 instance URL
     Value: !GetAtt EC2Instance.PublicDnsName 
-    Name: EC2URL
+    Eyport:
+      Name: EC2URL

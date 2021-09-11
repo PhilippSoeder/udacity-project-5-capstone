@@ -44,6 +44,6 @@ Outputs:
   AppEndpoint:
     Description: Endpoint the application is accessable on
     Value: 
-      !Sub http://${EC2Instance.PublicDnsName}
+      !Sub http://${EC2Instance.PublicDnsName}:${nodeport}
     Export:
       Name: ApplicationEndpoint

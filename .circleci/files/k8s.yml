@@ -42,6 +42,6 @@ Resources:
 
 Outputs:
   EC2-URL:
-    Description: Ec2 instance URL
+    Description: EC2 instance URL
     Value: !GetAtt EC2Instance.PublicDnsName 
     Name: EC2URL

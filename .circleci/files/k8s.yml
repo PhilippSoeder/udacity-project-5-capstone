@@ -44,8 +44,6 @@ Outputs:
   AppEndpoint:
     Description: Endpoint the application is accessable on
     Value: 
-      !Sub 
-        - http://${URL}
-        - { URL: !GetAtt EC2Instance.PublicDnsName }
+      !Sub http://${!GetAtt EC2Instance.PublicDnsName}
     Export:
       Name: Application Endpoint

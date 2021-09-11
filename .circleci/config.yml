@@ -1,0 +1,67 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@4.4.2
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:13.8.0
+  aws:
+    docker:
+      - image: amazon/aws-cli
+  python:
+    docker:
+      - image: python:3.7-alpine3.11
+    
+commands:
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    parameters:
+      when:
+        type: string  
+    steps:
+      - run:
+          name: Destroy environment
+          command: |
+            aws cloudformation delete-stack --stack-name udapeople-project-5-backend
+          when: << parameters.when >>
+
+jobs:
+  create-backend:
+    executor: aws
+    steps:
+      - checkout
+      - run:
+          name: Create backend
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/k8s.yml \
+              --tags project=udapeople-project-5 \
+              --stack-name "udapeople-project-5-backend" \
+              --parameter-overrides ami="ami-03d5c68bab01f3496" 
+      - run:
+          name: Export ec2 URL to memstash
+          command: |
+            EC2URL=$(aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicDnsName' \
+              --filters "Name=tag:project,Values=udapeople-project-5" \
+              --output text)
+            curl -H "Content-Type: text/plain" \
+              -H "token: ${MEMSTASH_TOKEN}" \
+              --request PUT --data http://$EC2URL \
+              https://api.memstash.io/values/EC2URL-Project-Philipp 
+      - run:
+          name: Load URL from memstash
+          command: |
+            curl -H "Content-Type: text/plain" \
+              -H "token: ${MEMSTASH_TOKEN}" \
+              --request GET \
+              https://api.memstash.io/values/EC2URL-Project-Philipp 
+      - destroy-environment:
+          when: on_fail
+
+workflows:
+  default:
+    jobs:
+      - create-backend

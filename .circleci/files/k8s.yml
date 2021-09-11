@@ -1,0 +1,32 @@
+Description: Backend for Udacity project 5
+
+Parameters:
+  ami:
+    Description: Ami used for EC2 Instance
+    Type: String
+
+Resources:
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: instanceSG
+      GroupDescription: Allow port 22
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.small
+      SecurityGroups:
+        - Ref: InstanceSecurityGroup
+      KeyName: udacity
+      ImageId: !Ref ami
+      Tags:
+        - Key: Name
+          Value: EC2 instance udacity project 5
+        - Key: project
+          Value: udacityProject5

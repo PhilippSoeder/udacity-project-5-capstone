@@ -25,7 +25,7 @@ commands:
           name: Destroy environment
           command: |
             aws cloudformation delete-stack --stack-name udapeople-project-5-backend
-          when: << parameters.when >>
+          when: on_fail
 
 jobs:
   create-backend:
@@ -81,8 +81,7 @@ jobs:
             cat inventory.txt
             ansible-playbook -vvv -i inventory.txt \
               configure-server.yml 
-      - destroy-environment:
-          when: on_fail
+      - destroy-environment
 
 workflows:
   default:

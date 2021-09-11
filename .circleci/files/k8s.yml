@@ -46,6 +46,6 @@ Outputs:
     Value: 
       !Sub 
         - http://${URL}
-        - { URL: !GetAtt EC2Instance.PublicDnsName}
+        - { URL: !GetAtt EC2Instance.PublicDnsName }
     Export:
       Name: Application Endpoint

@@ -41,7 +41,7 @@ Resources:
           Value: udacityProject5
 
 Outputs:
-  EC2-URL:
+  EC2URL:
     Description: EC2 instance URL
     Value: !GetAtt EC2Instance.PublicDnsName 
     Name: EC2URL

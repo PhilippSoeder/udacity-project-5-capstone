@@ -49,15 +49,38 @@ jobs:
               --output text)
             curl -H "Content-Type: text/plain" \
               -H "token: ${MEMSTASH_TOKEN}" \
-              --request PUT --data http://$EC2URL \
+              --request PUT --data $EC2URL \
               https://api.memstash.io/values/EC2URL-Project-Philipp 
       - run:
-          name: Load URL from memstash
+          name: Add URL to inventory file
           command: |
             curl -H "Content-Type: text/plain" \
               -H "token: ${MEMSTASH_TOKEN}" \
               --request GET \
-              https://api.memstash.io/values/EC2URL-Project-Philipp 
+              https://api.memstash.io/values/EC2URL-Project-Philipp \
+              >> .circleci/ansible/inventory.txt
+      - destroy-environment:
+          when: on_fail
+
+  configure-backend:
+    executor: python
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["49:d0:10:4c:a7:87:12:89:ad:bf:6d:42:bf:0c:17:53"]
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible 
+            apk add --update curl
+            pip install awscli
+      - run:
+          name: Configure server
+          working_directory: ./.circleci/ansible
+          command: |
+            cat inventory.txt
+            ansible-playbook -vvv -i inventory.txt \
+              configure-server.yml 
       - destroy-environment:
           when: on_fail
 

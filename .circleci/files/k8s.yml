@@ -27,9 +27,8 @@ Resources:
           ToPort: 22
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          Condition: NodeportExists
-          FromPort: !Ref nodeport
-          ToPort: !Ref nodeport
+          FromPort: Fn::If [ NodeportExists, !Ref nodeport, !Ref 'AWS::NoValue' ]
+          ToPort: Fn::If [ NodeportExists, !Ref nodeport, !Ref 'AWS::NoValue' ]
           CidrIp: 0.0.0.0/0
 
   EC2Instance:

@@ -206,7 +206,7 @@ workflows:
               only: [master]
       - deploy-app:
           requires: 
-            - create-and-upload-docker-image
+            - docker/publish
             - configure-backend
           filters:
             branches:

@@ -30,11 +30,10 @@
 - name: "check minikube status"
   become: yes
   shell: |
-    MINIKUBESTATUS=$(minikube status)
-    echo $MINIKUBESTATUS
-    if [ echo $MINIKUBESTATUS | grep 'not found' ]; then echo 'not running'; fi
+    if test -f minikube_started; then echo "minikube already started"; else echo "minikube not already started"; fi
 
 - name: "start minikube"
   become: yes
   shell: |
     minikube start --vm-driver=none
+    touch minikube_started

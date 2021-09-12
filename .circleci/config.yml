@@ -139,6 +139,36 @@ jobs:
               deploy-app.yml 
       - destroy-environment:
           when: on_fail
+  
+  smoke-test:
+    executor: python 
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update curl
+            pip install awscli
+      - run:
+          name: smoke test
+          command: |
+            APPLICATIONURL=$(curl -H "Content-Type: text/plain" \
+              -H "token: ${MEMSTASH_TOKEN}" \
+              --request GET \
+              https://api.memstash.io/values/EC2URL-Project-Philipp)
+            APPLICATIONPORT=$(curl -H "Content-Type: text/plain" \
+              -H "token: ${MEMSTASH_TOKEN}" \
+              --request GET \
+              https://api.memstash.io/values/AppPort-Project-Philipp)
+            APPLICATIONENDPOINT=$APPLICATIONURL:$APPLICATIONPORT
+            if curl -s ${APPLICATIONENDPOINT} | grep "Philipp Söder"
+            then
+              return 0
+            else
+              return 1
+            fi
+      - destroy-environment:
+          when: on_fail
 
 workflows:
   default:
@@ -146,10 +176,32 @@ workflows:
       - lint-app
       - create-and-upload-docker-image:
           requires: [lint-app]
-      - create-backend
+          filters:
+            branches:
+              only: [master]
+      - create-backend:
+          filters:
+            branches:
+              only: [master]
       - configure-backend:
           requires: [create-backend]
+          filters:
+            branches:
+              only: [master]
       - deploy-app:
           requires: 
             - create-and-upload-docker-image
             - configure-backend
+          filters:
+            branches:
+              only: [master]
+      #- update EC2-SG:
+          #- requries: [deploy-app]
+          #filters:
+            #branches:
+              #only: [master]
+      - smoke-test:
+          #requires: [deploy-app]
+          filters:
+            branches:
+              only: [master]

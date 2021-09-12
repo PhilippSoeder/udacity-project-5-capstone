@@ -100,10 +100,9 @@ jobs:
             make setup
             source ~/.project5/bin/activate
       - run:
-          name: make install and make lint
+          name: installing requirements and linting
           command: |
-            make install  
-            make lint
+            make all
 
 workflows:
   default:

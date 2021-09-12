@@ -178,11 +178,9 @@ jobs:
           command: |
             APPLICATIONURL=$(curl -H "Content-Type: text/plain" \
               -H "token: ${MEMSTASH_TOKEN}" \
-              --connect-timeout 240 \
-              --request GET \
-              https://api.memstash.io/values/EC2URL-Project-Philipp)
+              --request GET https://api.memstash.io/values/EC2URL-Project-Philipp)
             APPLICATIONENDPOINT="${APPLICATIONURL}:30000"
-            if curl -s ${APPLICATIONENDPOINT} | grep "Philipp Söder"
+            if curl -s ${APPLICATIONENDPOINT} --connect-timeout 240 | grep "Philipp Söder"
             then
               return 0
             else
@@ -197,9 +195,9 @@ workflows:
       - lint-app
       - security-check-app
       - create-and-upload-docker-image:
-          #requires: 
-            #- lint-app
-            #- security-check-app
+          requires: 
+            - lint-app
+            - security-check-app
           filters:
             branches:
               only: [master]

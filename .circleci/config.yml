@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@1.7.0
+
 executors:
   aws:
     docker:
@@ -120,19 +123,6 @@ jobs:
             make install
             make security-check
 
-  create-and-upload-docker-image:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: build
-          command: |
-            docker build --tag=${DOCKER_USERNAME}/capstone:${CIRCLE_WORKFLOW_ID} .
-            docker tag ${DOCKER_USERNAME}/capstone:${CIRCLE_WORKFLOW_ID} ${DOCKER_USERNAME}/capstone:latest
-            docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN 
-            docker push ${DOCKER_USERNAME}/capstone:${CIRCLE_WORKFLOW_ID}
-            docker push ${DOCKER_USERNAME}/capstone:latest
-
   deploy-app:
     executor: python
     steps:
@@ -197,6 +187,8 @@ workflows:
       - lint-app
       - security-check-app
       - create-and-upload-docker-image:
+          image: ${DOCKER_USERNAME}/capstone
+          tag: 'latest,${CIRCLE_WORKFLOW_ID}'
           requires: 
             - lint-app
             - security-check-app

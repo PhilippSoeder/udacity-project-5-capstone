@@ -11,3 +11,4 @@ TODO:
 * Add ssh key to CircleCI
 * What does the app?
 * Correct Readme formating
+* Add URL for accessing the application before submitting project

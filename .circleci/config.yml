@@ -139,7 +139,26 @@ jobs:
               deploy-app.yml 
       - destroy-environment:
           when: on_fail
-  
+
+  update-EC2-SG:
+    executor: aws
+    steps:
+      - checkout
+      - run:
+          name: Update EC2 SG
+          command: |
+            APPLICATIONPORT=$(curl -H "Content-Type: text/plain" \
+              -H "token: ${MEMSTASH_TOKEN}" \
+              --request GET \
+              https://api.memstash.io/values/AppPort-Project-Philipp)
+            aws cloudformation deploy \
+              --template-file .circleci/files/k8s.yml \
+              --tags project=udacityProject5 \
+              --stack-name "udapeople-project-5-backend" \
+              --parameter-overrides nodeport=${APPLICATIONPORT} 
+      - destroy-environment:
+          when: on_fail
+
   smoke-test:
     executor: python 
     steps:
@@ -195,11 +214,11 @@ workflows:
           filters:
             branches:
               only: [master]
-      #- update-EC2-SG:
-          #- requries: [deploy-app]
-          #filters:
-            #branches:
-              #only: [master]
+      - update-EC2-SG:
+          requries: [deploy-app]
+          filters:
+            branches:
+              only: [master]
       #- smoke-test:
           #requires: 
             #- deploy-app

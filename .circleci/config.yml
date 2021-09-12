@@ -106,7 +106,7 @@ jobs:
           name: build
           command: |
             docker build --tag=phlppsdr/capstone:${CIRCLE_WORKFLOW_ID} .
-            docket tag phlppsdr/capstone:${CIRCLE_WORKFLOW_ID} phlppsdr/capstone:latest
+            docker tag phlppsdr/capstone:${CIRCLE_WORKFLOW_ID} phlppsdr/capstone:latest
             docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN 
             docker push phlppsdr/capstone:${CIRCLE_WORKFLOW_ID}
             docker push phlppsdr/capstone:latest

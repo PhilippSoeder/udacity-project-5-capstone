@@ -110,7 +110,7 @@ jobs:
       - run:
           name: build
           command: |
-            docker build --tag=capstone .
+            docker build --tag=phlppsdr/capstone:latest .
             docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN 
             docker push phlppsdr/capstone:latest
 workflows:

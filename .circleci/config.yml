@@ -199,9 +199,7 @@ workflows:
             branches:
               only: [master]
       - deploy-app:
-          requires: 
-            - create-and-upload-docker-image
-            - configure-backend
+          requires: [create-and-upload-docker-image]
           filters:
             branches:
               only: [master]

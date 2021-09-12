@@ -20,6 +20,7 @@ spec:
       containers:
       - name: capstone
         image: phlppsdr/capstone:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---

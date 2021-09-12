@@ -178,6 +178,7 @@ jobs:
           command: |
             APPLICATIONURL=$(curl -H "Content-Type: text/plain" \
               -H "token: ${MEMSTASH_TOKEN}" \
+              --connect-timeout 240 \
               --request GET \
               https://api.memstash.io/values/EC2URL-Project-Philipp)
             APPLICATIONENDPOINT="${APPLICATIONURL}:30000"

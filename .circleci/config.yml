@@ -189,6 +189,7 @@ workflows:
       - docker/publish:
           image: ${DOCKER_USERNAME}/capstone
           tag: 'latest,${CIRCLE_WORKFLOW_ID}'
+          registry: 'hub.docker.com'
           requires: 
             - lint-app
             - security-check-app

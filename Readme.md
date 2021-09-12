@@ -18,7 +18,7 @@ The resutlting CircleCI pipeline (you can find the configuration in `.circleci/c
 * Deploy the docker image with ansible (you can find the ansible playbook in `.circleci/ansible/deploy-app.yml`) to the Kubernetes cluster (you can find the deployment and service configuration in `.circleci/ansible/roles/deploy-app/file/capstone.yml`)
 * smoke test the application by curling the enpoint
 
-The application `app.py` does return 'Hello! This is Philipp Söder's capstone project for the Udacity AWS Cloud DevOps Engineer Nanodegree Program.' when calling the endpoint <FIXME:30000>.
+The application `app.py` does return 'Hello! This is Philipp Söder's capstone project for the Udacity AWS Cloud DevOps Engineer Nanodegree Program.' when calling the endpoint <http://ec2-52-26-14-249.us-west-2.compute.amazonaws.com:30000>.
 
 ## Steps that need to be done to run this project
 

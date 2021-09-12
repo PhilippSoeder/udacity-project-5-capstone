@@ -156,11 +156,7 @@ jobs:
               -H "token: ${MEMSTASH_TOKEN}" \
               --request GET \
               https://api.memstash.io/values/EC2URL-Project-Philipp)
-            APPLICATIONPORT=$(curl -H "Content-Type: text/plain" \
-              -H "token: ${MEMSTASH_TOKEN}" \
-              --request GET \
-              https://api.memstash.io/values/AppPort-Project-Philipp)
-            APPLICATIONENDPOINT="${APPLICATIONURL}:${APPLICATIONPORT}"
+            APPLICATIONENDPOINT="${APPLICATIONURL}:30000"
             if curl -s ${APPLICATIONENDPOINT} | grep "Philipp Söder"
             then
               return 0

@@ -115,7 +115,7 @@ jobs:
             make setup
             source ~/.project5/bin/activate
       - run:
-          name: installing requirements and linting
+          name: installing requirements and security checking
           command: |
             make install
             make security-check

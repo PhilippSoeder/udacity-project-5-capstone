@@ -190,7 +190,7 @@ jobs:
           when: on_fail
 
 workflows:
-  backend-pipeline:
+  default:
     jobs:
       - lint-app
       - create-and-upload-docker-image:
@@ -198,8 +198,19 @@ workflows:
           filters:
             branches:
               only: [master]
+      - create-backend:
+          filters:
+            branches:
+              only: [master]
+      - configure-backend:
+          requires: [create-backend]
+          filters:
+            branches:
+              only: [master]
       - deploy-app:
-          requires: [create-and-upload-docker-image]
+          requires: 
+            - create-and-upload-docker-image
+            - configure-backend
           filters:
             branches:
               only: [master]
@@ -210,17 +221,6 @@ workflows:
               only: [master]
       - smoke-test:
           requires: [update-EC2-SG]
-          filters:
-            branches:
-              only: [master]
-  application-pipeline:
-    jobs:
-      - create-backend:
-          filters:
-            branches:
-              only: [master]
-      - configure-backend:
-          requires: [create-backend]
           filters:
             branches:
               only: [master]

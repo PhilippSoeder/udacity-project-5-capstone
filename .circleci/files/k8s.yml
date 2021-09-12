@@ -6,9 +6,9 @@ Parameters:
     Type: String
     Default: "ami-03d5c68bab01f3496"
   nodeport:
-    Description: Nodeport for k8s service
+    Description: Port the application is available on
     Type: Number
-    Default: 0
+    Default: 30000
 
 Resources:
   InstanceSecurityGroup:

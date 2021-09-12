@@ -13,4 +13,5 @@ TODO:
 * Correct Readme formating
 * Add URL for accessing the application before submitting project
 * Add Screenshots
+* Explain that normaly you should have separate pipelines for creating the K8S Cluster and deploying tht applikation
 * Check requirements for submission

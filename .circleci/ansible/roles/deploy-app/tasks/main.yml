@@ -1,9 +1,6 @@
 ---
 
 - name: "deploy app"
-  become: no
+  become: yes
   shell: |
-    curl -H "Content-Type: text/plain" \
-              -H "token: ${MEMSTASH_TOKEN}" \
-              --request PUT --data 1234 \
-              https://api.memstash.io/values/AppPort-Project-Philipp
+    ./kubectl apply -f capstone.yml

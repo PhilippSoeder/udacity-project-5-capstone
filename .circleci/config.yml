@@ -104,13 +104,9 @@ jobs:
           command: |
             make all
   create-and-upload-docker-image:
-    executor: python
+    machine: true
     steps:
       - checkout
-      - run:
-          name: install dependencies
-          command: |
-            apk add --update docker
       - run:
           name: build
           command: |

@@ -1,12 +1,6 @@
 version: 2.1
 
-orbs:
-  slack: circleci/slack@4.4.2
-
 executors:
-  node:
-    docker:
-      - image: circleci/node:13.8.0
   aws:
     docker:
       - image: amazon/aws-cli
@@ -83,7 +77,7 @@ jobs:
               configure-server.yml 
       - destroy-environment:
           when: on_fail
-  
+
   lint-app:
     executor: python
     steps:
@@ -103,6 +97,7 @@ jobs:
           name: installing requirements and linting
           command: |
             make all
+
   create-and-upload-docker-image:
     machine: true
     steps:
@@ -116,9 +111,9 @@ jobs:
 workflows:
   default:
     jobs:
-      #- lint-app
-      - create-and-upload-docker-image #:
-          #requires: [lint-app]
-      #- create-backend
-      #- configure-backend:
-          #requires: [create-backend]
+      - lint-app
+      - create-and-upload-docker-image:
+          requires: [lint-app]
+      - create-backend
+      - configure-backend:
+          requires: [create-backend]

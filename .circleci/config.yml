@@ -103,11 +103,25 @@ jobs:
           name: installing requirements and linting
           command: |
             make all
-
+  create-and-upload-docker-image:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            apk add --update docker
+      - run:
+          name: build
+          command: |
+            docker build --tag=capstone .
+            docker image ls
 workflows:
   default:
     jobs:
-      - lint-app
+      #- lint-app
+      - create-and-upload-docker-image #:
+          #requires: [lint-app]
       #- create-backend
       #- configure-backend:
           #requires: [create-backend]

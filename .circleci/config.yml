@@ -196,7 +196,7 @@ workflows:
             branches:
               only: [master]
       - smoke-test:
-          requires: [update-EC2-SG]
+          requires: [deploy-app]
           filters:
             branches:
               only: [master]

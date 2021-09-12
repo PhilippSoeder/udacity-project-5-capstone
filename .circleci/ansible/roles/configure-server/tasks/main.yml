@@ -30,4 +30,6 @@
 - name: "start minikube"
   become: yes
   shell: |
+    MINIKUBESTATUS=${minikube status}
+    echo $MINIKUBESTATUS
     minikube start --vm-driver=none

@@ -18,7 +18,7 @@ The resutlting CircleCI pipeline (you can find the configuration in `.circleci/c
 * Deploy the docker image with ansible (you can find the ansible playbook in `.circleci/ansible/deploy-app.yml`) to the Kubernetes cluster (you can find the deployment and service configuration in `.circleci/ansible/roles/deploy-app/file/capstone.yml`)
 * smoke test the application by curling the enpoint
 
-The application `app.py` does return 'Hello! This is Philipp Söders capstone project for the Udacity AWS Cloud DevOps Engineer Nanodegree Program.' when calling the endpoint <http://FIXME:30000>.
+The application `app.py` does return 'Hello! This is Philipp Söders capstone project for the Udacity AWS Cloud DevOps Engineer Nanodegree Program.' when calling the endpoint <http://ec2-54-200-38-245.us-west-2.compute.amazonaws.com:30000>.
 
 ## Steps that need to be done to run this project
 
@@ -33,10 +33,11 @@ To run this project on your own, you need to follow these steps:
 8. Create an account at [CircleCI](https://circleci.com)
 9. Add project to CircleCI
 10. Configure the following environment variables
-  * AWS_ACCESS_KEY_ID
-  * AWS_DEFAULT_REGION
-  * AWS_SECRET_ACCESS_KEY
-  * DOCKER_TOKEN
-  * DOCKER_USERNAME
-  * MEMSTASH_TOKEN
+  * `AWS_ACCESS_KEY_ID`
+  * `AWS_DEFAULT_REGION`
+  * `AWS_SECRET_ACCESS_KEY`
+  * `DOCKER_TOKEN`
+  * `DOCKER_USERNAME`
+  * `MEMSTASH_TOKEN`
 11. Add SSH key to CircleCI via website
+12. Run pipeline

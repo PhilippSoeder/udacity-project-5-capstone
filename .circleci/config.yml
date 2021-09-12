@@ -108,6 +108,38 @@ jobs:
             docker build --tag=phlppsdr/capstone:latest .
             docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN 
             docker push phlppsdr/capstone:latest
+
+  deploy-app:
+    executor: python
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["49:d0:10:4c:a7:87:12:89:ad:bf:6d:42:bf:0c:17:53"]
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible 
+            apk add --update curl
+            pip install awscli
+      - run:
+          name: Add URL to inventory file
+          command: |
+            URL=$(curl -H "Content-Type: text/plain" \
+              -H "token: ${MEMSTASH_TOKEN}" \
+              --request GET \
+              https://api.memstash.io/values/EC2URL-Project-Philipp) 
+            echo $URL >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
+      - run:
+          name: Deploy app
+          working_directory: ./.circleci/ansible
+          command: |
+            cat inventory.txt
+            ansible-playbook -vvv -i inventory.txt \
+              deploy-app.yml 
+      - destroy-environment:
+          when: on_fail
+
 workflows:
   default:
     jobs:
@@ -117,3 +149,7 @@ workflows:
       - create-backend
       - configure-backend:
           requires: [create-backend]
+      - deploy-app:
+          requires: 
+            - create-and-upload-docker-image
+            - configure-backend

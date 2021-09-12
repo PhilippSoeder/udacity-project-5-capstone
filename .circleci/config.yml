@@ -219,10 +219,10 @@ workflows:
           filters:
             branches:
               only: [master]
-      #- smoke-test:
-          #requires: 
-            #- deploy-app
-            #- update-EC2-SG
-          #filters:
-            #branches:
-              #only: [master]
+      - smoke-test:
+          requires: 
+            - deploy-app
+            - update-EC2-SG
+          filters:
+            branches:
+              only: [master]

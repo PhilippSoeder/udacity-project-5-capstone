@@ -188,7 +188,7 @@ workflows:
       - security-check-app
       - docker/publish:
           image: ${DOCKER_USERNAME}/capstone
-          tag: '${CIRCLE_WORKFLOW_ID},latest'
+          #tag: '${CIRCLE_WORKFLOW_ID},latest'
           #requires: 
             #- lint-app
             #- security-check-app

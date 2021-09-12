@@ -10,7 +10,7 @@ executors:
     
 commands:
   destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    description: Destroy backend. Only used for development of pipeline, in productive pipeline use the backend should not be destroyed.
     parameters:
       when:
         type: string  
@@ -195,13 +195,15 @@ workflows:
           filters:
             branches:
               only: [master]
-      #- update EC2-SG:
+      #- update-EC2-SG:
           #- requries: [deploy-app]
           #filters:
             #branches:
               #only: [master]
       #- smoke-test:
-          #requires: [deploy-app]
+          #requires: 
+            #- deploy-app
+            #- update-EC2-SG
           #filters:
             #branches:
               #only: [master]

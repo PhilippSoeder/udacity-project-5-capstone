@@ -96,7 +96,29 @@ jobs:
       - run:
           name: installing requirements and linting
           command: |
-            make all
+            make install
+            make lint
+
+  security-check-app:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            apk add --update make
+            apk add --update gcc
+            apk add --update musl-dev
+      - run:
+          name: setup env
+          command: |
+            make setup
+            source ~/.project5/bin/activate
+      - run:
+          name: installing requirements and linting
+          command: |
+            make install
+            make security-check
 
   create-and-upload-docker-image:
     machine: true
@@ -172,8 +194,11 @@ workflows:
   default:
     jobs:
       - lint-app
+      - security-check-app
       - create-and-upload-docker-image:
-          requires: [lint-app]
+          requires: 
+            - lint-app
+            - security-check-app
           filters:
             branches:
               only: [master]

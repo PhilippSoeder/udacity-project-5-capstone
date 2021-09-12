@@ -7,7 +7,8 @@ setup:
 install:
 	pip install -r requirements.txt &&\
 		wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.1/hadolint-Linux-x86_64 &&\
-		chmod +x hadolint
+		chmod +x hadolint &&\
+		pip install bandit
 
 lint:
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
@@ -17,4 +18,5 @@ lint:
 	# This should be run from inside a virtualenv
 	pylint --disable=R,C,W1203 app.py
 
-all: install lint 
+security-check:
+	bandit -r app.py

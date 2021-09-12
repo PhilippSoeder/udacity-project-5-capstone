@@ -127,11 +127,11 @@ jobs:
       - run:
           name: build
           command: |
-            docker build --tag=phlppsdr/capstone:${CIRCLE_WORKFLOW_ID} .
-            docker tag phlppsdr/capstone:${CIRCLE_WORKFLOW_ID} phlppsdr/capstone:latest
+            docker build --tag=${DOCKER_USERNAME}/capstone:${CIRCLE_WORKFLOW_ID} .
+            docker tag ${DOCKER_USERNAME}/capstone:${CIRCLE_WORKFLOW_ID} ${DOCKER_USERNAME}/capstone:latest
             docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN 
-            docker push phlppsdr/capstone:${CIRCLE_WORKFLOW_ID}
-            docker push phlppsdr/capstone:latest
+            docker push ${DOCKER_USERNAME}/capstone:${CIRCLE_WORKFLOW_ID}
+            docker push ${DOCKER_USERNAME}/capstone:latest
 
   deploy-app:
     executor: python

@@ -41,3 +41,11 @@ To run this project on your own, you need to follow these steps:
   * `MEMSTASH_TOKEN`
 11. Add SSH key to CircleCI via website
 12. Run pipeline
+
+## Links & Resources
+
+* [Udacity AWS Cloud DevOps Engineer Nanodegree Program](https://www.udacity.com/course/cloud-dev-ops-nanodegree--nd9991)
+* [CircleCI Documentation](https://circleci.com/docs/)
+* [Kubernetes Documentation](https://kubernetes.io/docs/home/)
+* [AWS Documentation](https://docs.aws.amazon.com)
+* [Docker Documentation](https://docs.docker.com)

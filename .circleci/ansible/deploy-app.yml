@@ -10,5 +10,6 @@
     - ansible_stdout_callback: yaml
   environment:
       MEMSTASH_TOKEN: "{{ lookup('env', 'MEMSTASH_TOKEN') }}"
+      NEWTAG: "{{ lookup('env', 'CIRCLE_WORKFLOW_ID') }}"
   roles:
     - deploy-app

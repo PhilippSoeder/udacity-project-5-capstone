@@ -4,6 +4,10 @@
     src: "files/capstone.yml"
     dest: "~/capstone.yml"
 
+- name: Update image tag
+  shell: |
+    sed -i 's@latest@'"$NEWTAG"'@' capstone.yml
+
 - name: deploy app
   become: yes
   shell: |

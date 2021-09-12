@@ -161,7 +161,7 @@ jobs:
               --request GET \
               https://api.memstash.io/values/AppPort-Project-Philipp)
             APPLICATIONENDPOINT="${APPLICATIONURL}:${APPLICATIONPORT}"
-            if curl -s ${APPLICATIONENDPOINT} | grep "here"
+            if curl -s ${APPLICATIONENDPOINT} | grep "Philipp Söder"
             then
               return 0
             else
@@ -200,8 +200,8 @@ workflows:
           #filters:
             #branches:
               #only: [master]
-      - smoke-test:
+      #- smoke-test:
           #requires: [deploy-app]
-          filters:
-            branches:
-              only: [master]
+          #filters:
+            #branches:
+              #only: [master]

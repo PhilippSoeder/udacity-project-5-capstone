@@ -93,7 +93,7 @@ jobs:
           command: |
             apk add --update make
             apk add --update gcc
-            apk add --update linux-headers
+            apk add --update musl-dev
       - run:
           name: setup env
           command: |

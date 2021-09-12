@@ -32,4 +32,4 @@
   shell: |
     MINIKUBESTATUS=$(minikube status)
     echo $MINIKUBESTATUS
-    if [ $MINIKUBESTATUS == '' ]; then minikube start --vm-driver=none; fi
+    if [ echo $MINIKUBESTATUS | grep 'not found' ]; then minikube start --vm-driver=none; fi

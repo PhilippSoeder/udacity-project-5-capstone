@@ -1,6 +1,10 @@
 ---
+- name: Copy capstone.yml to home
+  template:
+    src: "files/capstone.yml"
+    dest: "~/capstone.yml"
 
-- name: "deploy app"
+- name: deploy app
   become: yes
   shell: |
     ./kubectl apply -f capstone.yml

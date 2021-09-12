@@ -10,6 +10,7 @@ TODO:
   * MEMSTASH_TOKEN
 * Add ssh key to CircleCI
 * What does the app?
+* Check if minikube is already running when configuring backend
 * Correct Readme formating
 * Add URL for accessing the application before submitting project
 * Add Screenshots

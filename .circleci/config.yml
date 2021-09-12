@@ -160,8 +160,8 @@ jobs:
               -H "token: ${MEMSTASH_TOKEN}" \
               --request GET \
               https://api.memstash.io/values/AppPort-Project-Philipp)
-            APPLICATIONENDPOINT=$APPLICATIONURL:$APPLICATIONPORT
-            if curl -s ${APPLICATIONENDPOINT} | grep "Philipp Söder"
+            APPLICATIONENDPOINT="${APPLICATIONURL}:${APPLICATIONPORT}"
+            if curl -s ${APPLICATIONENDPOINT} | grep "here"
             then
               return 0
             else

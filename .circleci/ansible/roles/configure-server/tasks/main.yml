@@ -30,7 +30,7 @@
 - name: "check minikube status"
   become: yes
   shell: |
-    if [[ ! -f minikube_started ]]; then echo "minikube not started"; echo "bla"; else echo "minikube started"; fi
+    if [ ! -f minikube_started ]; then echo "minikube not started"; echo "bla"; else echo "minikube started"; fi
 
 - name: "start minikube"
   become: yes

@@ -83,10 +83,27 @@ jobs:
               configure-server.yml 
       - destroy-environment:
           when: on_fail
+  
+  lint-app:
+    executor: python
+    steps:
+      - checkout
+      - run:
+          name: setup env
+          command: |
+            make setup
+            source ~/.project5/bin/activate
+      - run:
+          name: install dependencies
+          command: make install
+      - run:
+          name: lint app
+          command: make lint
 
 workflows:
   default:
     jobs:
-      - create-backend
-      - configure-backend:
-          requires: [create-backend]
+      - lint-app
+      #- create-backend
+      #- configure-backend:
+          #requires: [create-backend]

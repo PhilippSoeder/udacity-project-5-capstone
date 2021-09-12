@@ -5,8 +5,7 @@ setup:
 	python3 -m venv ~/.project5
 
 install:
-	pip install --upgrade pip &&\
-		pip install -r requirements.txt &&\
+	pip install -r requirements.txt &&\
 		wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v2.6.1/hadolint-Linux-x86_64 &&\
 		chmod +x hadolint
 

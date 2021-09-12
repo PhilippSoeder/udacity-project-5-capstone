@@ -187,8 +187,8 @@ jobs:
             else
               return 1
             fi
-      - destroy-environment:
-          when: on_fail
+      #- destroy-environment:
+          #when: on_fail
 
 workflows:
   default:

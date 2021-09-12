@@ -39,8 +39,6 @@ Resources:
           Value: EC2 instance udacity project 5
         - Key: project
           Value: udacityProject5
-        - Key: removeMeAfterTest
-          Value: test
 
 Outputs:
   AppEndpoint:

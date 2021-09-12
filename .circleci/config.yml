@@ -186,7 +186,7 @@ workflows:
     jobs:
       - lint-app
       - security-check-app
-      - create-and-upload-docker-image:
+      - docker/publish:
           image: ${DOCKER_USERNAME}/capstone
           tag: 'latest,${CIRCLE_WORKFLOW_ID}'
           requires: 

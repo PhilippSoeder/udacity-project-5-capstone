@@ -12,3 +12,5 @@ TODO:
 * What does the app?
 * Correct Readme formating
 * Add URL for accessing the application before submitting project
+* Add Screenshots
+* Check requirements for submission
